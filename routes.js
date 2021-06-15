@@ -7,9 +7,14 @@ router.get("/", function(req, res) {
   res.send("Welcome to the Webhooks API");
 });
 
+router.post("/stripe-webhooks-endpoint", function(req, res) {
+  console.log(req.body);
+  res.send("Stripe Successfully received Webhook request");
+});
+
 router.post("/shopify-webhooks-endpoint", function(req, res) {
   console.log(req.body);
-  res.send("Successfully received Webhook request");
+  res.send("Shopify Successfully received Webhook request");
 });
 
 router.get("/todos", function(req, res) {
