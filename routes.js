@@ -1,11 +1,16 @@
 const express = require('express');
 const todos = require("./todos");
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 
 const router = express.Router();
 
 router.get("/", function(req, res) {
   res.send("Welcome to the Webhooks API");
+});
+
+router.post("/okta-webhooks-endpoint", function(req, res) {
+  console.log(req.body.data);
+  res.send("Okta Event hook Successfully received");
 });
 
 router.post("/stripe-webhooks-endpoint", bodyParser.raw({type: 'application/json'}), function(req, res) {
