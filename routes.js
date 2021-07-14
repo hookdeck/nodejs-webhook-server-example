@@ -9,7 +9,7 @@ router.get("/", function(req, res) {
 });
 
 router.post("/okta-webhooks-endpoint", function(req, res) {
-  console.log(req.body.data);
+  console.log(req.body);
   res.send("Okta Event hook Successfully received");
 });
 
