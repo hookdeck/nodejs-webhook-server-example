@@ -8,12 +8,14 @@ router.get("/", function(req, res) {
 });
 
 router.post("/log-github-webhook", async function(req, res) {
-  console.log(req.body);
+  //console.log(req.body);
 
   const payload = req.body;
 
   let webhook_info = {
-
+    repo : payload.repository.name,
+    author : payload.sender.login,
+    time : payload.head_commit.timestamp
   }
   
   const save_webhook = await req.db
