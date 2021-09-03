@@ -7,7 +7,7 @@ router.get("/", function(req, res) {
   res.send("Welcome to the Webhooks API");
 });
 
-router.post("/log-github-webhook", async function(req, res) {
+router.post("/log-github-webhoo", async function(req, res) {
   //console.log(req.body);
 
   const payload = req.body;

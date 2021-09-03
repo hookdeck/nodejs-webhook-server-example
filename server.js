@@ -9,7 +9,7 @@ const app = express();
 
 const sigHeaderName = 'X-Hub-Signature-256';
 const sigHashAlg = 'sha256';
-const secret = "ABCD1234";
+const secret = "XXXXXX";
 
 
 app.use(bodyParser.json(
@@ -40,11 +40,13 @@ const dbSetup = async (req, res, next) => {
 app.use(dbSetup);
 
 //Validate payload
-/* function validatePayload(req, res, next) {
+function validatePayload(req, res, next) {
 
     if(req.method == "POST"){
         if (!req.rawBody) {
-            return next('Request body empty')
+            return res.status(400).send({
+                message: "Request Body empty"
+            });
         }
     
         const sig = Buffer.from(req.get(sigHeaderName) || '', 'utf8')
@@ -52,14 +54,17 @@ app.use(dbSetup);
         const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('hex'), 'utf8');
     
         if (sig.length !== digest.length || !crypto.timingSafeEqual(digest, sig)) {
-            return next(`Request body digest (${digest}) did not match ${sigHeaderName} (${sig})`)
+            return res.status(401).send({
+                message: `Request body digest (${digest}) did not match ${sigHeaderName} (${sig})`
+            });
+            /* return next(`Request body digest (${digest}) did not match ${sigHeaderName} (${sig})`) */
         }
     }
 
     return next()
 
 }
-app.use(validatePayload); */
+app.use(validatePayload);
 app.use('/', routes);
 
 // Server
