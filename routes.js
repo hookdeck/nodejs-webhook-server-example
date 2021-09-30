@@ -14,10 +14,13 @@ router.post("/log-github-webhook", async function(req, res) {
 
   let webhook_info = {
     repo : payload.repository.name,
-    author : payload.sender.login,
-    time : payload.head_commit.timestamp
+    author : payload.sender.login
   }
-  
+
+  if(payload.head_commit){
+    webhook_info.time = payload.head_commit.timestamp;
+  }
+
   const save_webhook = await req.db
   .collection("webhooks")
   .insertOne(webhook_info);

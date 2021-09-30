@@ -9,7 +9,7 @@ const app = express();
 
 const sigHeaderName = 'X-Hub-Signature-256';
 const sigHashAlg = 'sha256';
-const secret = "ABCD1234";
+const secret = "ABCD123";
 
 
 app.use(bodyParser.json(
@@ -39,8 +39,8 @@ const dbSetup = async (req, res, next) => {
 
 app.use(dbSetup);
 
-//Validate payload
-/* function validatePayload(req, res, next) {
+/* //Validate payload
+function validatePayload(req, res, next) {
 
     if(req.method == "POST"){
         if (!req.rawBody) {
