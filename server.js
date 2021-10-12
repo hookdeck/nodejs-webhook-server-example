@@ -7,7 +7,7 @@ const crypto = require('crypto');
 // App
 const app = express();
 
-const sigHeaderName = 'X-Hub-Signature-256';
+const sigHeaderName = 'circleci-signature';
 const sigHashAlg = 'sha256';
 const secret = "ABCD123";
 
@@ -16,7 +16,7 @@ app.use(bodyParser.json(
     {
         verify: (req, res, buf, encoding) => {
             if (buf && buf.length) {
-            req.rawBody = buf.toString(encoding || 'utf8');
+                req.rawBody = buf.toString(encoding || 'utf8');
             }
         },
     }

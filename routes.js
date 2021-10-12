@@ -7,18 +7,16 @@ router.get("/", function(req, res) {
   res.send("Welcome to the Webhooks API");
 });
 
-router.post("/log-github-webhook", async function(req, res) {
+router.post("/log-circleci-webhook", async function(req, res) {
   //console.log(req.body);
 
   const payload = req.body;
 
   let webhook_info = {
-    repo : payload.repository.name,
-    author : payload.sender.login
-  }
-
-  if(payload.head_commit){
-    webhook_info.time = payload.head_commit.timestamp;
+    name : payload.webhook.name,
+    project : payload.project.name,
+    workflow : payload.workflow.name,
+    status : payload.workflow.status
   }
 
   const save_webhook = await req.db
