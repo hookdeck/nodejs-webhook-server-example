@@ -9,7 +9,7 @@ const app = express();
 
 const sigHeaderName = 'circleci-signature';
 const sigHashAlg = 'sha256';
-const secret = "ABCD123";
+const secret = "XXX-XX";
 
 
 app.use(bodyParser.json(
