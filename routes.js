@@ -7,12 +7,13 @@ router.get("/", function(req, res) {
   res.send("Welcome to the Webhooks API");
 });
 
-router.post("/log-circleci-webhook", async function(req, res) {
+router.post("/log-shopify-webhook", async function(req, res) {
   //console.log(req.body);
 
   const payload = req.body;
+  console.log(payload);
 
-  let webhook_info = {
+  /* let webhook_info = {
     name : payload.webhook.name,
     project : payload.project.name,
     workflow : payload.workflow.name,
@@ -21,7 +22,7 @@ router.post("/log-circleci-webhook", async function(req, res) {
 
   const save_webhook = await req.db
   .collection("webhooks")
-  .insertOne(webhook_info);
+  .insertOne(webhook_info); */
 
   res.status(201).send({
     message: "Webhook Event successfully logged"

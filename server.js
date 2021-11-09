@@ -7,9 +7,9 @@ const crypto = require('crypto');
 // App
 const app = express();
 
-const sigHeaderName = 'circleci-signature';
+const sigHeaderName = 'x-shopify-hmac-sha256';
 const sigHashAlg = 'sha256';
-const secret = "ABCD123";
+const secret = "ABCD1234";
 
 
 app.use(bodyParser.json(
