@@ -9,7 +9,7 @@ const app = express();
 
 const sigHeaderName = 'x-shopify-hmac-sha256';
 const sigHashAlg = 'sha256';
-const secret = "ABCD1234";
+const secret = "xx-xx-x";
 
 
 app.use(bodyParser.json(
@@ -46,14 +46,20 @@ app.use(dbSetup);
         if (!req.rawBody) {
             return next('Request body empty')
         }
-    
-        const sig = Buffer.from(req.get(sigHeaderName) || '', 'utf8')
-        const hmac = crypto.createHmac(sigHashAlg, secret)
-        const digest = Buffer.from('v1=' + hmac.update(req.rawBody).digest('hex'), 'utf8');
-    
-        if (sig.length !== digest.length || !crypto.timingSafeEqual(digest, sig)) {
-            return next(`Request body digest (${digest}) did not match ${sigHeaderName} (${sig})`)
-        }
+
+        const body = req.rawBody;
+        const hmacHeader = req.get(sigHeaderName);
+        //Create a hash based on the parsed body
+        const hash = crypto
+            .createHmac(sigHashAlg, secret)
+            .update(body, "utf8", "hex")
+            .digest("base64");
+
+        // Compare the created hash with the value of the X-Shopify-Hmac-Sha256 Header
+        if (hash !== hmacHeader) {
+            return next(`Request body digest (${hash}) did not match ${sigHeaderName} (${hmacHeader})`)
+        } 
+
     }
 
     return next()

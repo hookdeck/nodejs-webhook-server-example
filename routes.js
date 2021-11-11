@@ -11,18 +11,17 @@ router.post("/log-shopify-webhook", async function(req, res) {
   //console.log(req.body);
 
   const payload = req.body;
-  console.log(payload);
+  //console.log(payload);
 
-  /* let webhook_info = {
-    name : payload.webhook.name,
-    project : payload.project.name,
-    workflow : payload.workflow.name,
-    status : payload.workflow.status
+  let webhook_info = {
+    webhook_id : req.headers['x-shopify-webhook-id'],
+    total_items : payload.line_items.length,
+    time : payload.created_at
   }
 
   const save_webhook = await req.db
   .collection("webhooks")
-  .insertOne(webhook_info); */
+  .insertOne(webhook_info);
 
   res.status(201).send({
     message: "Webhook Event successfully logged"
