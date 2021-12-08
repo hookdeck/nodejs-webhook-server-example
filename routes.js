@@ -8,10 +8,8 @@ router.get("/", function(req, res) {
 });
 
 router.post("/log-shopify-webhook", async function(req, res) {
-  //console.log(req.body);
-
+  
   const payload = req.body;
-  //console.log(payload);
 
   let webhook_info = {
     webhook_id : req.headers['x-shopify-webhook-id'],

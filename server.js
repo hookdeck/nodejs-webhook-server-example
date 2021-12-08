@@ -9,7 +9,7 @@ const app = express();
 
 const sigHeaderName = 'x-shopify-hmac-sha256';
 const sigHashAlg = 'sha256';
-const secret = "xx-xx-x";
+const secret = "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";
 
 
 app.use(bodyParser.json(
@@ -40,7 +40,7 @@ const dbSetup = async (req, res, next) => {
 app.use(dbSetup);
 
 //Validate payload
-/* function validatePayload(req, res, next) {
+function validatePayload(req, res, next) {
 
     if(req.method == "POST"){
         if (!req.rawBody) {
@@ -65,7 +65,7 @@ app.use(dbSetup);
     return next()
 
 }
-app.use(validatePayload); */
+app.use(validatePayload);
 app.use('/', routes);
 
 // Server
