@@ -14,7 +14,7 @@ router.post("/log-webhook", async function(req, res) {
   let webhook_info = {
     repo : payload.repository.name,
     author : payload.sender.login,
-    time : payload.head_commit.timestamp
+    time : payload.head_commit? payload.head_commit.timestamp : 0
   }
   
   const save_webhook = await req.db
