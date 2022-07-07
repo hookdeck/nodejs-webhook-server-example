@@ -7,16 +7,16 @@ router.get("/", function(req, res) {
   res.send("Welcome to the Webhooks API");
 });
 
-router.post("/log-shopify-webhook", async function(req, res) {
+router.post("/log-webhook", async function(req, res) {
   
   const payload = req.body;
 
   let webhook_info = {
-    webhook_id : req.headers['x-shopify-webhook-id'],
-    total_items : payload.line_items.length,
-    time : payload.created_at
+    repo : payload.repository.name,
+    author : payload.sender.login,
+    time : payload.head_commit.timestamp
   }
-
+  
   const save_webhook = await req.db
   .collection("webhooks")
   .insertOne(webhook_info);

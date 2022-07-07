@@ -39,33 +39,8 @@ const dbSetup = async (req, res, next) => {
 
 app.use(dbSetup);
 
-//Validate payload
-/* function validatePayload(req, res, next) {
+//Perform HMAC verification
 
-    if(req.method == "POST"){
-        if (!req.rawBody) {
-            return next('Request body empty')
-        }
-
-        const body = req.rawBody;
-        const hmacHeader = req.get(sigHeaderName);
-        //Create a hash based on the parsed body
-        const hash = crypto
-            .createHmac(sigHashAlg, secret)
-            .update(body, "utf8", "hex")
-            .digest("base64");
-
-        // Compare the created hash with the value of the X-Shopify-Hmac-Sha256 Header
-        if (hash !== hmacHeader) {
-            return next(`Request body digest (${hash}) did not match ${sigHeaderName} (${hmacHeader})`)
-        } 
-
-    }
-
-    return next()
-
-}
-app.use(validatePayload); */
 app.use('/', routes);
 
 // Server
