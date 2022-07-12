@@ -7,9 +7,6 @@ const crypto = require('crypto');
 // App
 const app = express();
 
-const sigHeaderName = 'x-shopify-hmac-sha256';
-const sigHashAlg = 'sha256';
-const secret = "xx-xx-x";
 
 
 app.use(bodyParser.json(
