@@ -11,9 +11,12 @@ router.post("/log-webhook", async function(req, res) {
   
   const payload = req.body;
 
+  //console.log(payload);
+
   let webhook_info = {
-    repo : payload.repository.name,
-    author : payload.sender.login,
+    webhook_id : payload.id,
+    idempotency_key : payload.request.idempotency_key,
+    event_type : payload.type,
     time : payload.head_commit? payload.head_commit.timestamp : 0
   }
   
