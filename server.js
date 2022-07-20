@@ -4,8 +4,11 @@ const bodyParser = require('body-parser');
 const { startDatabase } = require("./database");
 const crypto = require('crypto');
 
+
 // App
 const app = express();
+
+
 
 
 
@@ -37,6 +40,7 @@ const dbSetup = async (req, res, next) => {
 app.use(dbSetup);
 
 //Perform HMAC verification
+
 
 app.use('/', routes);
 
