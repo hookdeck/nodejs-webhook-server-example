@@ -18,6 +18,11 @@ router.post("/stripe-webhooks-endpoint", bodyParser.raw({type: 'application/json
   res.send("Stripe Successfully received Webhook request");
 });
 
+router.post("/paypal-webhooks-endpoint", bodyParser.raw({ type: 'application/json' }), function(req, res) {
+	console.log(req.body);
+	res.send("Paypal Successfully received Webhook request");
+});
+
 router.post("/shopify-webhooks-endpoint", function(req, res) {
   console.log(req.body);
   res.send("Shopify Successfully received Webhook request");
