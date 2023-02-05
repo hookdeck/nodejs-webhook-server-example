@@ -29,6 +29,21 @@ router.post("/paddle-webhooks-endpoint", bodyParser.raw({ type: 'application/x-w
 	res.send("Paddle Successfully received Webhook request");
 });
 
+router.post("/github-webhooks-endpoint", function(req, res) {
+  console.log(req.body);
+  res.send("GitHub Successfully received Webhook request");
+});
+
+router.post("/gitlab-webhooks-endpoint", function(req, res) {
+  console.log(req.body);
+  res.send("Gitlab Successfully received Webhook request");
+});
+
+router.post("/bitbucket-webhooks-endpoint", function(req, res) {
+  console.log(req.body);
+  res.send("Bitbucket Successfully received Webhook request");
+});
+
 router.post("/shopify-webhooks-endpoint", function(req, res) {
   console.log(req.body);
   res.send("Shopify Successfully received Webhook request");
