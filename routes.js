@@ -14,8 +14,6 @@ router.post("/okta-webhooks-endpoint", function(req, res) {
   res.send("Okta Event hook Successfully received");
 });
 
-// PAYMENTS Endpoints
-
 router.post("/stripe-webhooks-endpoint", bodyParser.raw({type: 'application/json'}), function(req, res) {
   console.log(req.body);
   res.send("Stripe Successfully received Webhook request");
@@ -30,18 +28,6 @@ router.post("/paddle-webhooks-endpoint", bodyParser.raw({ type: 'application/x-w
 	console.log(qs.parse(decodeURIComponent(req.body)));
 	res.send("Paddle Successfully received Webhook request");
 });
-
-router.post("/checkout-webhooks-endpoint", bodyParser.raw({ type: 'application/json' }), function(req, res) {
-  console.log(req.body);
-	res.send("Checkout Successfully received Webhook request");
-});
-
-router.post("/adyen-webhooks-endpoint", bodyParser.raw({ type: 'application/json' }), function(req, res) {
-  console.log(req.body.notificationItems);
-	res.send("Adyen Successfully received Webhook request");
-});
-
-// ECORMERCE Endpoints
 
 router.post("/shopify-webhooks-endpoint", function(req, res) {
   console.log(req.body);
