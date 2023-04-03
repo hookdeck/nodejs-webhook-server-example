@@ -75,6 +75,13 @@ router.post("/commercelayer-webhooks-endpoint", bodyParser.raw({type: 'applicati
   res.send("Commerce Layer Successfully received Webhook request");
 });
 
+// CRM
+
+router.post("/hubspot-webhooks-endpoint", function(req, res) {
+  console.log(req.body);
+  res.send("HubSpot Successfully received Webhook request");
+});
+
 // EXTRAS
 
 router.post("/okta-webhooks-endpoint", bodyParser.raw({type: 'application/json'}), function(req, res) {
