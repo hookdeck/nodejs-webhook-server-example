@@ -82,6 +82,11 @@ router.post("/hubspot-webhooks-endpoint", function(req, res) {
   res.send("HubSpot Successfully received Webhook request");
 });
 
+router.post("/pipedrive-webhooks-endpoint", function(req, res) {
+  console.log(req.body);
+  res.send("Pipedrive Successfully received Webhook request");
+});
+
 // EXTRAS
 
 router.post("/okta-webhooks-endpoint", bodyParser.raw({type: 'application/json'}), function(req, res) {
