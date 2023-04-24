@@ -6,5 +6,26 @@
 
 ## Running the Application
 
-1. Run `npm install`
-2. Run `node server`
+- Open up your terminal and clone the repository by running
+
+```bash
+git clone https://github.com/hookdeck/nodejs-webhook-server-example.git
+```
+
+- Change into the cloned directory and install the dependencies
+
+```bash
+cd nodejs-webhook-server-example
+npm install
+```
+
+- Start the server by executing
+
+```bash
+node server.js
+```
+
+>🟢 The node.js server starts up on `http://localhost:1337`.
+---
+>See the list of endpoints in the `routes.js` file.
+Use the endpoint in the format `/<platform>-webhooks-endpoint.`
