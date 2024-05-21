@@ -4,7 +4,14 @@ const bodyParser = require('body-parser');
 // App
 const app = express();
 
-
+app.use(
+    express.json({
+      // Store the rawBody buffer on the request
+      verify: (req, res, buf) => {
+        req.rawBody = buf;
+      },
+    }),
+  );
 
 app.use(bodyParser.json());
 
