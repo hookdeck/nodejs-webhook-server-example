@@ -1,18 +1,11 @@
 import express, { Express, Request, Response } from 'express';
 import routes from './routes';
 import bodyParser from 'body-parser';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 // App
 const app: Express = express();
-
-// app.use(
-//   express.json({
-//     // Store the rawBody buffer on the request
-//     verify: (req: Request, res: Response, buf: Buffer) => {
-//       (req as any).rawBody = buf;
-//     },
-//   }),
-// );
 
 app.use(bodyParser.json());
 

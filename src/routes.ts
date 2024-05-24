@@ -1,60 +1,61 @@
-import express, { Request, Response, Router } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import { verifyWebhookSignature } from "@hookdeck/sdk/webhooks/helpers";
 import qs from 'querystring';
 import { IncomingHttpHeaders } from 'http';
 import { Request as ExpressRequest } from 'express';
 
+const SECRET: string = process.env.HOOKDECK_SIGNING_SECRET || '';
 
-const SECRET: string =  process.env.HOOKDECK_SIGNING_SECRET || '';
-
-const router: Router = express.Router();
-
+const router = express.Router();
 
 interface RequestWithRawBody extends ExpressRequest {
-  rawBody: Buffer;
+    rawBody: Buffer;
 }
 
-const verifyHookdeckSignature = async (req: RequestWithRawBody, res: Response, next: () => void) => {
-  const headers: { [key: string]: string } = {};
-  const incomingHeaders = req.headers as IncomingHttpHeaders;
+if(!SECRET) {
+  console.warn("No Hookdeck Secret set!");
+}
 
-  for (const [key, value] of Object.entries(incomingHeaders)) {
-    headers[key] = value as string;
-  }
+const verifyHookdeckSignature = async (req: RequestWithRawBody, res: Response, next: NextFunction) => {
+    const headers: { [key: string]: string } = {};
+    const incomingHeaders = req.headers as IncomingHttpHeaders;
 
-  const rawBody = req.rawBody.toString();
+    for (const [key, value] of Object.entries(incomingHeaders)) {
+        headers[key] = value as string;
+    }
 
-  const result = await verifyWebhookSignature({
-    headers,
-    rawBody,
-    signingSecret: SECRET,
-    config: {
-      checkSourceVerification: true,
-    },
-  });
+    const rawBody = req.rawBody.toString();
+    const result = await verifyWebhookSignature({
+        headers,
+        rawBody,
+        signingSecret: SECRET,
+        config: {
+            checkSourceVerification: true,
+        },
+    });
 
-  if (!result.isValidSignature) {
-    console.log('Signature is invalid, rejected');
-    res.sendStatus(403); // Forbidden
-  } else {
-    next(); // Proceed to the next middleware/route handler
-  }
+    if (!result.isValidSignature) {
+        console.log('Signature is invalid, rejected');
+        res.sendStatus(403); // Forbidden
+    } else {
+        next(); // Proceed to the next middleware/route handler
+    }
 };
 
 router.get('/', (req: Request, res: Response) => {
-  res.send('Welcome to the Webhooks API');
+    res.send('Welcome to the Webhooks API');
 });
 
 // TEST
 router.post('/testing', verifyHookdeckSignature, (req: Request, res: Response) => {
-  console.log(req.headers);
-  res.send('Tested');
+    console.log(req.headers);
+    res.send('Tested');
 });
 
 // PAYMENTS
 router.post('/stripe-webhooks-endpoint', verifyHookdeckSignature, (req: Request, res: Response) => {
-  console.log(req.body);
-  res.send('Stripe Successfully received Webhook request');
+    console.log(req.body);
+    res.send('Stripe Successfully received Webhook request');
 });
 
 router.post('/paypal-webhooks-endpoint', verifyHookdeckSignature, (req: Request, res: Response) => {

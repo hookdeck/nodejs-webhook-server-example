@@ -1,23 +1,27 @@
 {
-  "name": "webhooks-api",
-  "version": "1.0.0",
-  "description": "A simple Nodejs API",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/server.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@hookdeck/sdk": "^0.2.2",
-    "@types/body-parser": "^1.19.5",
-    "@types/express": "^4.17.21",
-    "@types/node": "^20.12.12",
-    "body-parser": "^1.19.0",
-    "dotenv": "^16.4.5",
-    "express": "^4.16.4",
-    "raw-body": "^2.5.2",
-    "typescript": "^5.4.5"
-  }
+    "name": "webhooks-api",
+    "version": "1.0.0",
+    "description": "A simple Nodejs API",
+    "main": "server.js",
+    "scripts": {
+        "start": "ts-node src/server.ts",
+        "dev": "ts-node-dev src/server.ts"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@hookdeck/sdk": "^0.2.2",
+        "body-parser": "^1.20.2",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "raw-body": "^2.5.2"
+    },
+    "devDependencies": {
+        "@types/body-parser": "^1.19.5",
+        "@types/express": "^4.17.21",
+        "@types/node": "^20.12.12",
+        "ts-node": "^10.9.2",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.4.5"
+    }
 }
