@@ -1,12 +1,10 @@
 {
   "name": "webhooks-api",
   "version": "1.0.0",
-  "description": "A simple Nodejs API",
-  "main": "dist/server.js",
+  "description": "An example server that demonstrates ingesting webhooks from various providers",
+  "private": true,
   "scripts": {
-    "start": "node dist/server.js",
-    "dev": "vite-node src/server.ts",
-    "build": "tsc"
+    "dev": "vite-node src/server.ts"
   },
   "author": "",
   "license": "ISC",
