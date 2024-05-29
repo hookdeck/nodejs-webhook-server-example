@@ -5,7 +5,7 @@ import qs from "querystring";
 import { IncomingHttpHeaders } from "http";
 import { Request as ExpressRequest } from "express";
 
-const SECRET: string = process.env.HOOKDECK_SIGNING_SECRET || "";
+const SECRET: string = import.meta.env.VITE_HOOKDECK_SIGNING_SECRET || "";
 
 const router = express.Router();
 
