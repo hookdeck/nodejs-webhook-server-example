@@ -17,15 +17,15 @@ if (!SECRET) {
   console.warn("No Hookdeck Signing Secret set!");
 }
 
-console.log("hello");
-
 const verifyHookdeckSignature = async (
   req: RequestWithRawBody,
   res: Response,
   next: NextFunction
 ) => {
   if (!SECRET) {
-    console.warn("No Hookdeck Signing Secret: Skipping webhook verification ");
+    console.warn(
+      "No Hookdeck Signing Secret: Skipping webhook verification. Do not do this in production!"
+    );
     return next();
   }
 
@@ -48,9 +48,9 @@ const verifyHookdeckSignature = async (
 
   if (!result.isValidSignature) {
     console.log("Signature is invalid, rejected");
-    res.sendStatus(403); // Forbidden
+    res.sendStatus(401);
   } else {
-    next(); // Proceed to the next middleware/route handler
+    next();
   }
 };
 
