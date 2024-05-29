@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "start": "node dist/server.js",
-    "dev": "ts-node-dev src/server.ts",
+    "dev": "vite-node src/server.ts",
     "build": "tsc"
   },
   "author": "",
@@ -23,6 +23,7 @@
     "@types/node": "^20.12.12",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vite-node": "^1.6.0"
   }
 }

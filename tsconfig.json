@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "nodenext",
+    "module": "esnext",
+    "moduleResolution": "Bundler",
     "strict": false,
     "esModuleInterop": true,
     "outDir": "./dist",
-    "rootDir": "./src",
-    "moduleResolution": "nodenext"
+    "rootDir": "./src"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
