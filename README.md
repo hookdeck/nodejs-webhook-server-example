@@ -22,7 +22,7 @@ npm install
 - Start the server by executing
 
 ```bash
-node server.js
+npm run dev
 ```
 
 >🟢 The node.js server starts up on `http://localhost:1337`.
