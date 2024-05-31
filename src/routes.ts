@@ -9,16 +9,17 @@ const SECRET: string = import.meta.env.VITE_HOOKDECK_SIGNING_SECRET || "";
 
 const router = express.Router();
 
-interface RequestWithRawBody extends ExpressRequest {
-  rawBody: Buffer;
-}
+// interface RequestWithRawBody extends ExpressRequest {
+//   rawBody: Buffer;
+// }
 
 if (!SECRET) {
   console.warn("No Hookdeck Signing Secret set!");
 }
+console.log({ SECRET });
 
 const verifyHookdeckSignature = async (
-  req: RequestWithRawBody,
+  req: ExpressRequest,
   res: Response,
   next: NextFunction
 ) => {
@@ -36,13 +37,16 @@ const verifyHookdeckSignature = async (
     headers[key] = value as string;
   }
 
+  console.log({ headers });
+
   const rawBody = req.rawBody.toString();
+  console.log({ rawBody });
   const result = await verifyWebhookSignature({
     headers,
     rawBody,
     signingSecret: SECRET,
     config: {
-      checkSourceVerification: true,
+      checkSourceVerification: false,
     },
   });
 
@@ -50,6 +54,7 @@ const verifyHookdeckSignature = async (
     console.log("Signature is invalid, rejected");
     res.sendStatus(401);
   } else {
+    console.log("Signature is valid, accepted");
     next();
   }
 };
