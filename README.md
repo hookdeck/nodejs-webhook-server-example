@@ -6,20 +6,33 @@
 
 ## Running the Application
 
-- Open up your terminal and clone the repository by running
+1. **Clone the Repository:**
+
+Open your terminal and run:
 
 ```bash
 git clone https://github.com/hookdeck/nodejs-webhook-server-example.git
 ```
 
-- Change into the cloned directory and install the dependencies
+2. **Install Dependencies:**
+
+Change into the cloned directory and install the dependencies
 
 ```bash
 cd nodejs-webhook-server-example
 npm install
 ```
+3. **Setup Environment Variables:**
 
-- Start the server by executing
+Create a `.env` file and add your [Hookdeck secret](https://dashboard.hookdeck.com/settings/project/secrets) for signature verification
+
+```makefile
+HOOKDECK_SIGNING_SECRET=<your_secret_here>
+```
+
+4. **Start the Server:**
+
+Start the server by executing
 
 ```bash
 npm run dev
