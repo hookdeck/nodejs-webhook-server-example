@@ -6,13 +6,12 @@ import "dotenv/config";
 // App
 const app = express();
 
-app.use(
-  bodyParser.json({
-    verify: (req, res, buf) => {
-      req.rawBody = buf;
-    },
-  })
-);
+const setRawBody = (req: any, res: any, buf: any) => {
+  req.rawBody = buf;
+};
+
+app.use(bodyParser.urlencoded({ extended: false, verify: setRawBody }));
+app.use(bodyParser.json({ verify: setRawBody }));
 
 // Set port
 const port: string | number = process.env.PORT || "1337";

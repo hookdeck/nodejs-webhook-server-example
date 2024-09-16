@@ -16,7 +16,7 @@ const router = express.Router();
 if (!SECRET) {
   console.warn("No Hookdeck Signing Secret set!");
 }
-console.log({ SECRET });
+// console.log({ SECRET });
 
 const verifyHookdeckSignature = async (
   req: ExpressRequest,
@@ -37,10 +37,11 @@ const verifyHookdeckSignature = async (
     headers[key] = value as string;
   }
 
-  console.log({ headers });
+  // console.log({ headers });
 
   const rawBody = req.rawBody.toString();
-  console.log({ rawBody });
+  // console.log({ rawBody });
+
   const result = await verifyWebhookSignature({
     headers,
     rawBody,
@@ -79,7 +80,7 @@ router.post(
   verifyHookdeckSignature,
   (req: Request, res: Response) => {
     console.log(req.body);
-    res.send("Stripe Successfully received Webhook request");
+    res.send("Stripe: Successfully received Webhook request");
   }
 );
 
@@ -88,7 +89,7 @@ router.post(
   verifyHookdeckSignature,
   (req: Request, res: Response) => {
     console.log(req.body);
-    res.send("Paypal Successfully received Webhook request");
+    res.send("Paypal: Successfully received Webhook request");
   }
 );
 
@@ -96,8 +97,8 @@ router.post(
   "/paddle-webhooks-endpoint",
   verifyHookdeckSignature,
   (req: Request, res: Response) => {
-    console.log(qs.parse(decodeURIComponent((req.body as any).toString())));
-    res.send("Paddle Successfully received Webhook request");
+    console.log(req.body);
+    res.send("Paddle: Successfully received Webhook request");
   }
 );
 
@@ -106,7 +107,7 @@ router.post(
   verifyHookdeckSignature,
   (req: Request, res: Response) => {
     console.log(req.body);
-    res.send("Checkout Successfully received Webhook request");
+    res.send("Checkout: Successfully received Webhook request");
   }
 );
 
@@ -116,7 +117,7 @@ router.post(
   verifyHookdeckSignature,
   (req: Request, res: Response) => {
     console.log(req.body);
-    res.send("GitHub Successfully received Webhook request");
+    res.send("GitHub: Successfully received Webhook request");
   }
 );
 
@@ -125,7 +126,7 @@ router.post(
   verifyHookdeckSignature,
   (req: Request, res: Response) => {
     console.log(req.body);
-    res.send("Gitlab Successfully received Webhook request");
+    res.send("Gitlab: Successfully received Webhook request");
   }
 );
 
@@ -134,7 +135,7 @@ router.post(
   verifyHookdeckSignature,
   (req: Request, res: Response) => {
     console.log(req.body);
-    res.send("Bitbucket Successfully received Webhook request");
+    res.send("Bitbucket: Successfully received Webhook request");
   }
 );
 
@@ -143,7 +144,7 @@ router.post(
   verifyHookdeckSignature,
   (req: Request, res: Response) => {
     console.log(req.body);
-    res.send("Docker Successfully received Webhook request");
+    res.send("Docker: Successfully received Webhook request");
   }
 );
 
@@ -153,7 +154,7 @@ router.post(
   verifyHookdeckSignature,
   (req: Request, res: Response) => {
     console.log(req.body);
-    res.send("Shopify Successfully received Webhook request");
+    res.send("Shopify: Successfully received Webhook request");
   }
 );
 
@@ -171,7 +172,7 @@ router.post(
   verifyHookdeckSignature,
   (req: Request, res: Response) => {
     console.log(req.body);
-    res.send("WooCommerce Successfully received Webhook request");
+    res.send("WooCommerce: Successfully received Webhook request");
   }
 );
 
@@ -180,7 +181,7 @@ router.post(
   verifyHookdeckSignature,
   (req: Request, res: Response) => {
     console.log(req.body);
-    res.send("Commerce Layer Successfully received Webhook request");
+    res.send("Commerce Layer: Successfully received Webhook request");
   }
 );
 
@@ -190,7 +191,7 @@ router.post(
   verifyHookdeckSignature,
   (req: Request, res: Response) => {
     console.log(req.body);
-    res.send("HubSpot Successfully received Webhook request");
+    res.send("HubSpot: Successfully received Webhook request");
   }
 );
 
@@ -199,7 +200,7 @@ router.post(
   verifyHookdeckSignature,
   (req: Request, res: Response) => {
     console.log(req.body);
-    res.send("Pipedrive Successfully received Webhook request");
+    res.send("Pipedrive: Successfully received Webhook request");
   }
 );
 
