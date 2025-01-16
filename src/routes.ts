@@ -1,17 +1,13 @@
 import express, { Request, Response, NextFunction } from "express";
 import { verifyWebhookSignature } from "@hookdeck/sdk/webhooks/helpers";
+import crypto from "crypto";
 
-import qs from "querystring";
 import { IncomingHttpHeaders } from "http";
 import { Request as ExpressRequest } from "express";
 
 const SECRET: string = import.meta.env.VITE_HOOKDECK_SIGNING_SECRET || "";
 
 const router = express.Router();
-
-// interface RequestWithRawBody extends ExpressRequest {
-//   rawBody: Buffer;
-// }
 
 if (!SECRET) {
   console.warn("No Hookdeck Signing Secret set!");
@@ -149,9 +145,40 @@ router.post(
 );
 
 // E-COMM
+function verifyShopifySignature(req, res, next) {
+  const sigHeaderName = "x-shopify-hmac-sha256";
+  const secret = process.env.VITE_SHOPIFY_WEBHOOK_SECRET;
+  if (!secret) {
+    console.log("No Shopify secret configured");
+    return next();
+  }
+  if (!req.rawBody) {
+    return next("Request body empty");
+  }
+  const body = req.rawBody;
+  const hmacHeader = req.get(sigHeaderName);
+
+  // Create a hash based on the parsed body
+  const hash = crypto
+    .createHmac("sha256", secret)
+    .update(body, "utf8")
+    .digest("base64");
+
+  // Compare the created hash with the value of the X-Shopify-Hmac-Sha256 Header
+  if (hash !== hmacHeader) {
+    return next(
+      `Request body digest (${hash}) did not match ${sigHeaderName} (${hmacHeader})`
+    );
+  } else {
+    console.log("Shopify: Signature is valid, accepted");
+  }
+  return next();
+}
+
 router.post(
   "/shopify-webhooks-endpoint",
   verifyHookdeckSignature,
+  verifyShopifySignature,
   (req: Request, res: Response) => {
     console.log(req.body);
     res.send("Shopify: Successfully received Webhook request");
