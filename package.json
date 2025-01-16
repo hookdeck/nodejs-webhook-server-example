@@ -4,6 +4,7 @@
   "description": "An example server that demonstrates ingesting webhooks from various providers",
   "private": true,
   "scripts": {
+    "start": "npm run dev",
     "dev": "vite-node src/server.ts"
   },
   "author": "",
